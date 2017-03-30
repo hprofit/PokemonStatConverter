@@ -1,0 +1,5 @@
+const ACTION_TYPES = {
+    SET_NEW_POKEMON: 'SET_NEW_POKEMON'
+};
+
+export default ACTION_TYPES;

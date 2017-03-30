@@ -1,0 +1,7 @@
+node_modules/
+.idea/
+build/
+
+.DS_STORE
+yarn.lock
+npm-debug.log
