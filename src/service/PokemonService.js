@@ -5,7 +5,7 @@ const POKEMON_URL = 'pokemon/';
 
 export default class PokemonService {
     static getPokemon(pokemon) {
-        return fetch(`${BASE_URL}${POKEMON_URL}${pokemon}`, {
+        return fetch(`${BASE_URL}${POKEMON_URL}${pokemon}/`, {
             method: 'GET',
             cache: 'default'
         }).then(function (response) {
