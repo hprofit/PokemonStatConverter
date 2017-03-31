@@ -26,10 +26,10 @@ const pokemonTheme = getMuiTheme({
         //accent2Color: '#ED1C24',
         //accent3Color: '#ED1C24',
         textColor: '#000000',
-        alternateTextColor: '#FFFFFF',
+        alternateTextColor: '#ffffff',
         //canvasColor: '#ED1C24',
         borderColor: COLORS.PURPLE,
-        disabledColor: '#FFFFFF',
+        disabledColor: '#000000',
         //pickerHeaderColor: '#ED1C24',
         //clockCircleColor: '#ED1C24',
         //shadowColor: '#ED1C24'

@@ -4,31 +4,31 @@ import {connect} from 'react-redux';
 import setNewPokemon from './actions/Actions';
 import PokemonService from './service/PokemonService';
 import PokemonDisplay from './PokemonDisplay/PokemonDisplay';
+import Header from './Header/Header';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+
+const MIN_POKE_ID = 1;
+const MAX_POKE_ID = 802;
 
 class Root extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            pokemonId: 0
+            pokemonId: 1,
+            isLoading: false
         };
 
         this.getPokemon = this.getPokemon.bind(this);
         this.handlePokemonIdChange = this.handlePokemonIdChange.bind(this);
     }
 
-    componentDidMount() {
-    }
-
-    componentWillUnmount() {
-    }
-
     getPokemon() {
-        console.log('Retrieving pokemon...');
         const pokeID = this.state.pokemonId;
+        this.setState({isLoading: true});
         PokemonService.getPokemon(pokeID).then((pokemon) => {
-            console.log(pokemon);
+            this.setState({isLoading: false});
             this.props.setNewPokemon(pokemon);
-            console.log('Retrieved!');
         })
     }
 
@@ -37,12 +37,20 @@ class Root extends React.Component {
     }
 
     render() {
+        const style = {
+            margin: 12
+        };
+
         return (
             <div>
-                <h1>Pokemon Stat Generator</h1>
-                <label>Pokémon ID: </label>
-                <input type="number" value={this.state.pokemonId} onChange={this.handlePokemonIdChange}/>
-                <button onClick={this.getPokemon}>Get Info</button>
+                <Header isLoading={this.state.isLoading} />
+                <TextField
+                    floatingLabelText="Pokémon ID (1-802)"
+                    type="number"
+                    value={this.state.pokemonId}
+                    onChange={this.handlePokemonIdChange}
+                />
+                <RaisedButton label="Get Info" primary={true} style={style} onClick={this.getPokemon} />
                 <PokemonDisplay currentPokemon={this.props.pokemon}/>
             </div>
         );
