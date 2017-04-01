@@ -15,27 +15,60 @@ export const STATS = {
 };
 
 export default class Pokemon {
-    constructor(jsonObj) {
-        const stats = {};
-        this.JSON_OBJ = jsonObj;
-        this.JSON_OBJ.stats.forEach((stat) => {
-            stats[`${stat.stat.name}`] = stat.base_stat;
-        });
+    constructor(jsonObj, fromCache = false) {
+        if (!fromCache) {
+            const stats = {};
+            this.JSON_OBJ = jsonObj;
+            this.JSON_OBJ.stats.forEach((stat) => {
+                stats[`${stat.stat.name}`] = stat.base_stat;
+            });
 
-        this.name = capitalizeFirstLetter(jsonObj.name);
-        this.HP = stats.hp;
-        this.PATK = stats.attack;
-        this.PDEF = stats.defense;
-        this.SATK = stats['special-attack'];
-        this.SDEF = stats['special-defense'];
-        this.SPD = stats.speed;
+            this.NAME = capitalizeFirstLetter(jsonObj.name);
+            this.ID = jsonObj.id;
+            this.HP = stats.hp;
+            this.PATK = stats.attack;
+            this.PDEF = stats.defense;
+            this.SATK = stats['special-attack'];
+            this.SDEF = stats['special-defense'];
+            this.SPD = stats.speed;
 
-        this.PMD_HP = this.convertHP(this.HP);
-        this.PMD_PATK = this.convertStat(this.PATK);
-        this.PMD_PDEF = this.convertStat(this.PDEF);
-        this.PMD_SATK = this.convertStat(this.SATK);
-        this.PMD_SDEF = this.convertStat(this.SDEF);
-        this.PMD_SPD = this.convertStat(this.SPD);
+            this.PMD_HP = this.convertHP(this.HP);
+            this.PMD_PATK = this.convertStat(this.PATK);
+            this.PMD_PDEF = this.convertStat(this.PDEF);
+            this.PMD_SATK = this.convertStat(this.SATK);
+            this.PMD_SDEF = this.convertStat(this.SDEF);
+            this.PMD_SPD = this.convertStat(this.SPD);
+        }
+        else {
+            this.NAME = jsonObj.NAME;
+            this.ID = jsonObj.ID;
+            this.HP = stats.HP;
+            this.PATK = stats.PATK;
+            this.PDEF = stats.PDEF;
+            this.SATK = stats.SATK;
+            this.SDEF = stats.SDEF;
+            this.SPD = stats.SPD;
+
+            this.PMD_HP = this.convertHP(this.HP);
+            this.PMD_PATK = this.convertStat(this.PATK);
+            this.PMD_PDEF = this.convertStat(this.PDEF);
+            this.PMD_SATK = this.convertStat(this.SATK);
+            this.PMD_SDEF = this.convertStat(this.SDEF);
+            this.PMD_SPD = this.convertStat(this.SPD);
+        }
+    }
+
+    toJSON() {
+        return {
+            ID: this.ID,
+            NAME: this.NAME,
+            HP: this.HP,
+            PATK: this.PATK,
+            PDEF: this.PDEF,
+            SATK: this.SATK,
+            SDEF: this.SDEF,
+            SPD: this.SPD
+        }
     }
 
     _getStatDisplay(stat) {

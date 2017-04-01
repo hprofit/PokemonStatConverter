@@ -11,13 +11,9 @@ export default class Loading extends React.Component {
     }
 
     render() {
-        //if (this.props.shouldShow) {
-            return (
-                <img src="../assets/loading.gif" style={STYLES}/>
-            );
-        //}
-        //else {
-        //    return null;
-        //}
+        return (
+            //<img src="../pmdTTRPG/assets/loading.gif" style={STYLES}/>
+            <img src="../assets/loading.gif" style={STYLES}/>
+        );
     }
 }

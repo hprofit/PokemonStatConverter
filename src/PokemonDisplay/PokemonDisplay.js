@@ -14,7 +14,7 @@ export default class PokemonDisplay extends React.Component {
             return (
                 <div>
                     <AppBar
-                        title={pokemon.name}
+                        title={pokemon.NAME}
                         iconClassNameRight="muidocs-icon-navigation-expand-more"
                         showMenuIconButton={false}
                     />

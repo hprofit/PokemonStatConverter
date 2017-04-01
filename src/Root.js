@@ -21,6 +21,7 @@ class Root extends React.Component {
 
         this.getPokemon = this.getPokemon.bind(this);
         this.handlePokemonIdChange = this.handlePokemonIdChange.bind(this);
+        this.verifyPokemonIdIsValid = this.verifyPokemonIdIsValid.bind(this);
     }
 
     getPokemon() {
@@ -29,11 +30,15 @@ class Root extends React.Component {
         PokemonService.getPokemon(pokeID).then((pokemon) => {
             this.setState({isLoading: false});
             this.props.setNewPokemon(pokemon);
-        })
+        });
     }
 
     handlePokemonIdChange(event) {
         this.setState({pokemonId: event.target.value});
+    }
+
+    verifyPokemonIdIsValid() {
+        return MIN_POKE_ID <= this.state.pokemonId && this.state.pokemonId <= MAX_POKE_ID;
     }
 
     render() {
@@ -46,11 +51,16 @@ class Root extends React.Component {
                 <Header isLoading={this.state.isLoading} />
                 <TextField
                     floatingLabelText="Pokémon ID (1-802)"
-                    type="number"
+                    type="number" max={MAX_POKE_ID} min={MIN_POKE_ID}
                     value={this.state.pokemonId}
                     onChange={this.handlePokemonIdChange}
                 />
-                <RaisedButton label="Get Info" primary={true} style={style} onClick={this.getPokemon} />
+                <RaisedButton
+                    label="Get Info"
+                    disabled={!this.verifyPokemonIdIsValid()}
+                    primary={true} style={style}
+                    onClick={this.getPokemon}
+                />
                 <PokemonDisplay currentPokemon={this.props.pokemon}/>
             </div>
         );

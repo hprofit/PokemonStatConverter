@@ -13,12 +13,20 @@ export default class PokemonService {
         return fetch(`${BASE_URL}${POKEMON_URL}${pokemonId}/`, {
             method: 'GET',
             cache: 'default'
-        }).then(function (response) {
-            // Convert to JSON
-            return response.json();
-        }).then(function (data) {
-                localStorage.setItem(pokemonId, JSON.stringify(data));
-                return new Pokemon(data)
+        })
+            .then(function (response) {
+                // Convert to JSON
+                return response.json();
+            })
+            .then(function (data) {
+                let pokemon = new Pokemon(data);
+                try {
+                    localStorage.setItem(pokemonId, JSON.stringify(pokemon.toJSON()));
+                }
+                catch (e) {
+                    console.log('Quota exceeded!');
+                }
+                return pokemon;
             })
             .catch((error) => console.log(error));
     }
@@ -26,7 +34,7 @@ export default class PokemonService {
     static _getPokemonFromStorage(pokemonId) {
         return new Promise((resolve, reject) => {
             let data = JSON.parse(localStorage.getItem(pokemonId));
-            resolve(new Pokemon(data))
+            resolve(new Pokemon(data, true));
         });
     }
 }
