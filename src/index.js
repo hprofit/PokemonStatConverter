@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import pokemonReducer from './reducers/Pokemon';
 import Root from './Root';
+import COLORS from './Colors';
 import {cyan500} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -11,11 +12,7 @@ import * as mui from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
-const COLORS = {
-    PINK: '#FD87E4',
-    PURPLE: '#774DB4',
-    GRAY: '#BDBDBD'
-};
+
 
 const pokemonTheme = getMuiTheme({
     palette: {

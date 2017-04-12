@@ -1,18 +1,20 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import Loading from './Loading';
 
-export default class Header extends React.Component {
+class Header extends React.Component {
     constructor(props) {
         super(props);
     }
 
     render() {
+        console.log('Rendering Header');
         return this.props.isLoading ?
             this._renderHeaderWithLoading() : this._renderHeaderWithoutLoading();
     }
 
-    _renderHeaderWithoutLoading () {
+    _renderHeaderWithoutLoading() {
         return (
             <AppBar
                 title={'Pokemon Stat Generator'}
@@ -32,3 +34,15 @@ export default class Header extends React.Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        isLoading: state.isLoading
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

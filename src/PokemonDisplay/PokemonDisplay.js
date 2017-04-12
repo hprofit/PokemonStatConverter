@@ -1,9 +1,10 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import { STATS } from  '../model/Pokemon';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import AppBar from 'material-ui/AppBar';
 
-export default class PokemonDisplay extends React.Component {
+class PokemonDisplay extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -48,3 +49,15 @@ export default class PokemonDisplay extends React.Component {
         }
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        currentPokemon: state.pokemon
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PokemonDisplay);

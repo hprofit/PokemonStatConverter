@@ -42,12 +42,12 @@ export default class Pokemon {
         else {
             this.NAME = jsonObj.NAME;
             this.ID = jsonObj.ID;
-            this.HP = stats.HP;
-            this.PATK = stats.PATK;
-            this.PDEF = stats.PDEF;
-            this.SATK = stats.SATK;
-            this.SDEF = stats.SDEF;
-            this.SPD = stats.SPD;
+            this.HP = jsonObj.HP;
+            this.PATK = jsonObj.PATK;
+            this.PDEF = jsonObj.PDEF;
+            this.SATK = jsonObj.SATK;
+            this.SDEF = jsonObj.SDEF;
+            this.SPD = jsonObj.SPD;
 
             this.PMD_HP = this.convertHP(this.HP);
             this.PMD_PATK = this.convertStat(this.PATK);

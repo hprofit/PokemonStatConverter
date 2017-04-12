@@ -6,6 +6,10 @@ const pokemonReducer = (state = {}, action) => {
             return {
                 pokemon: action.pokemon
             };
+        case ACTION_TYPES.SET_IS_LOADING:
+            return {
+                isLoading: action.isLoading
+            };
         default:
             return state
     }
