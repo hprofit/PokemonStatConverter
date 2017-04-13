@@ -1,14 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {connect} from 'react-redux';
-import {setNewPokemon} from './actions/Actions';
-import PokemonService from './service/PokemonService';
 import PokemonSearch from './Search/PokemonSearch';
 import PokemonDisplay from './PokemonDisplay/PokemonDisplay';
 import PokemonImage from './PokemonDisplay/PokemonImage';
 import Header from './Header/Header';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
+import Paper from 'material-ui/Paper';
 
 export default class Root extends React.Component {
     constructor(props) {
@@ -16,13 +11,21 @@ export default class Root extends React.Component {
     }
 
     render() {
+        const style = {
+            marginTop: 10,
+            marginBottom: 10,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            textAlign: 'center',
+            display: 'inline-block'
+        };
         return (
-            <div>
+            <Paper style={style} zDepth={1}>
                 <Header />
                 <PokemonSearch />
-                <PokemonImage />
-                <PokemonDisplay />
-            </div>
+                <PokemonImage style="display: inline-block;" />
+                <PokemonDisplay style="display: inline-block;" />
+            </Paper>
         );
     }
 }

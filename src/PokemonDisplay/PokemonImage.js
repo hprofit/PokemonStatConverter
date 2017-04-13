@@ -1,9 +1,7 @@
-//http://bulbapedia.bulbagarden.net/wiki/File:471Glaceon.png
-
-
 import React from 'react';
+import {connect} from 'react-redux';
 
-export default class PokemonImage extends React.Component {
+class PokemonImage extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -13,6 +11,7 @@ export default class PokemonImage extends React.Component {
             const pokemon = this.props.currentPokemon;
             return (
                 <div>
+                    <img src={pokemon.getImageUrl()} />
                 </div>
             );
         }
@@ -21,3 +20,15 @@ export default class PokemonImage extends React.Component {
         }
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        currentPokemon: state.pokemon
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PokemonImage);

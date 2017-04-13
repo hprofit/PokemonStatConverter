@@ -9,7 +9,6 @@ class Header extends React.Component {
     }
 
     render() {
-        console.log('Rendering Header');
         return this.props.isLoading ?
             this._renderHeaderWithLoading() : this._renderHeaderWithoutLoading();
     }

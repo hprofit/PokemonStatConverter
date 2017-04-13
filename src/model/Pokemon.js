@@ -58,6 +58,14 @@ export default class Pokemon {
         }
     }
 
+    getImageUrl() {
+        let id = this.ID + '';
+        if (id.length !== 3) {
+            id = id.length === 2 ? `0${id}` : `00${id}`
+        }
+        return `http://www.serebii.net/sunmoon/pokemon/${id}.png`
+    }
+
     toJSON() {
         return {
             ID: this.ID,

@@ -43,11 +43,14 @@ class PokemonSearch extends React.Component {
 
     render() {
         const style = {
-            margin: 12
+            marginLeft: 12
+        };
+        const containerStyle = {
+            padding: 10
         };
 
         return (
-            <div>
+            <div style={containerStyle}>
                 <TextField
                     floatingLabelText="Pokémon ID (1-721)"
                     type="number" max={MAX_POKE_ID} min={MIN_POKE_ID}
