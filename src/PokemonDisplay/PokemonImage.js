@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import Paper from 'material-ui/Paper';
 
 class PokemonImage extends React.Component {
     constructor(props) {
@@ -8,11 +9,18 @@ class PokemonImage extends React.Component {
 
     render() {
         if (this.props.currentPokemon) {
+            const style = {
+                marginRight: 10,
+                display: 'flex'
+            };
+            const imgStyle = {
+                alignSelf: 'center'
+            };
             const pokemon = this.props.currentPokemon;
             return (
-                <div>
-                    <img src={pokemon.getImageUrl()} />
-                </div>
+                <Paper style={style} zDepth={2}>
+                    <img src={pokemon.getImageUrl()} style={imgStyle} />
+                </Paper>
             );
         }
         else {

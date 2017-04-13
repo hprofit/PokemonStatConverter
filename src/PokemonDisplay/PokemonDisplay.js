@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import { STATS } from  '../model/Pokemon';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import AppBar from 'material-ui/AppBar';
+import Paper from 'material-ui/Paper';
 
 class PokemonDisplay extends React.Component {
     constructor(props) {
@@ -11,9 +12,15 @@ class PokemonDisplay extends React.Component {
 
     render() {
         if (this.props.currentPokemon) {
+            const style = {
+                width: 400,
+                marginLeft: 10,
+                textAlign: 'center',
+                display: 'inline-block'
+            };
             const pokemon = this.props.currentPokemon;
             return (
-                <div>
+                <Paper style={style} zDepth={2}>
                     <AppBar
                         title={pokemon.NAME}
                         iconClassNameRight="muidocs-icon-navigation-expand-more"
@@ -41,7 +48,7 @@ class PokemonDisplay extends React.Component {
                             {pokemon.getStatTableRow(STATS.SPD)}
                         </TableBody>
                     </Table>
-                </div>
+                </Paper>
             );
         }
         else {
