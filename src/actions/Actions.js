@@ -13,3 +13,17 @@ export const setIsLoading = (isLoading) => {
         isLoading
     }
 };
+
+export const setNewCustomRanges = (ranges) => {
+    return {
+        type: ACTION_TYPES.SET_NEW_CUSTOM_RANGES,
+        ranges
+    }
+};
+
+export const setEditingCustomRanges = (isEditing) => {
+    return {
+        type: ACTION_TYPES.SET_EDITING_CUSTOM_RANGES,
+        isEditing
+    }
+};

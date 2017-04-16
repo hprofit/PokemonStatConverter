@@ -1,4 +1,5 @@
 import React from 'react';
+import CustomizeRanges from './Ranges/CustomizeRanges';
 import PokemonSearch from './Search/PokemonSearch';
 import PokemonDisplay from './PokemonDisplay/PokemonDisplay';
 import PokemonImage from './PokemonDisplay/PokemonImage';
@@ -10,6 +11,11 @@ export default class Root extends React.Component {
     }
 
     render() {
+        const upperContainerStyle = {
+            display: 'flex',
+            //alignItems: 'center',
+            padding: 10
+        };
         const containerStyle = {
             display: 'flex',
             width: 500,
@@ -19,7 +25,10 @@ export default class Root extends React.Component {
         return (
             <div>
                 <Header />
-                <PokemonSearch />
+                <div style={upperContainerStyle}>
+                    <CustomizeRanges />
+                    <PokemonSearch />
+                </div>
                 <div style={containerStyle}>
                     <PokemonImage />
                     <PokemonDisplay />

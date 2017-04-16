@@ -4,6 +4,7 @@ import { STATS } from  '../model/Pokemon';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
+import PokemonTypeDisplay from './PokemonTypeDisplay';
 
 class PokemonDisplay extends React.Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class PokemonDisplay extends React.Component {
                 <Paper style={style} zDepth={2}>
                     <AppBar
                         title={pokemon.NAME}
-                        iconClassNameRight="muidocs-icon-navigation-expand-more"
+                        //iconElementRight={<PokemonTypeDisplay pokemon={pokemon}/>}
                         showMenuIconButton={false}
                     />
                     <Table>

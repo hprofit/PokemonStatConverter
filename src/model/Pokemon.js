@@ -16,46 +16,63 @@ export const STATS = {
 
 export default class Pokemon {
     constructor(jsonObj, fromCache = false) {
-        if (!fromCache) {
-            const stats = {};
-            this.JSON_OBJ = jsonObj;
-            this.JSON_OBJ.stats.forEach((stat) => {
-                stats[`${stat.stat.name}`] = stat.base_stat;
+        fromCache ? this._fromCache(jsonObj) : this._fromNetwork(jsonObj);
+    }
+
+    _fromNetwork(jsonObj) {
+        const stats = {};
+        this.JSON_OBJ = jsonObj;
+        this.JSON_OBJ.stats.forEach((stat) => {
+            stats[`${stat.stat.name}`] = stat.base_stat;
+        });
+
+        this.NAME = capitalizeFirstLetter(jsonObj.name);
+        this.ID = jsonObj.id;
+        this.HP = stats.hp;
+        this.PATK = stats.attack;
+        this.PDEF = stats.defense;
+        this.SATK = stats['special-attack'];
+        this.SDEF = stats['special-defense'];
+        this.SPD = stats.speed;
+
+        const types = this.JSON_OBJ.types;
+        if (types.length === 2) {
+            types.sort(function (a, b) {
+                return a.slot < b.slot ? -1 : 1;
             });
-
-            this.NAME = capitalizeFirstLetter(jsonObj.name);
-            this.ID = jsonObj.id;
-            this.HP = stats.hp;
-            this.PATK = stats.attack;
-            this.PDEF = stats.defense;
-            this.SATK = stats['special-attack'];
-            this.SDEF = stats['special-defense'];
-            this.SPD = stats.speed;
-
-            this.PMD_HP = this.convertHP(this.HP);
-            this.PMD_PATK = this.convertStat(this.PATK);
-            this.PMD_PDEF = this.convertStat(this.PDEF);
-            this.PMD_SATK = this.convertStat(this.SATK);
-            this.PMD_SDEF = this.convertStat(this.SDEF);
-            this.PMD_SPD = this.convertStat(this.SPD);
+            this.TYPE1 = types[0].type.name;
+            this.TYPE2 = types[1].type.name;
         }
         else {
-            this.NAME = jsonObj.NAME;
-            this.ID = jsonObj.ID;
-            this.HP = jsonObj.HP;
-            this.PATK = jsonObj.PATK;
-            this.PDEF = jsonObj.PDEF;
-            this.SATK = jsonObj.SATK;
-            this.SDEF = jsonObj.SDEF;
-            this.SPD = jsonObj.SPD;
-
-            this.PMD_HP = this.convertHP(this.HP);
-            this.PMD_PATK = this.convertStat(this.PATK);
-            this.PMD_PDEF = this.convertStat(this.PDEF);
-            this.PMD_SATK = this.convertStat(this.SATK);
-            this.PMD_SDEF = this.convertStat(this.SDEF);
-            this.PMD_SPD = this.convertStat(this.SPD);
+            this.TYPE1 = types[0].type.name;
         }
+
+        this.PMD_HP = this.convertHP(this.HP);
+        this.PMD_PATK = this.convertStat(this.PATK);
+        this.PMD_PDEF = this.convertStat(this.PDEF);
+        this.PMD_SATK = this.convertStat(this.SATK);
+        this.PMD_SDEF = this.convertStat(this.SDEF);
+        this.PMD_SPD = this.convertStat(this.SPD);
+    }
+
+    _fromCache(jsonObj) {
+        this.NAME = jsonObj.NAME;
+        this.ID = jsonObj.ID;
+        this.HP = jsonObj.HP;
+        this.PATK = jsonObj.PATK;
+        this.PDEF = jsonObj.PDEF;
+        this.SATK = jsonObj.SATK;
+        this.SDEF = jsonObj.SDEF;
+        this.SPD = jsonObj.SPD;
+        this.TYPE1 = jsonObj.TYPE1;
+        this.TYPE2 = jsonObj.TYPE2;
+
+        this.PMD_HP = this.convertHP(this.HP);
+        this.PMD_PATK = this.convertStat(this.PATK);
+        this.PMD_PDEF = this.convertStat(this.PDEF);
+        this.PMD_SATK = this.convertStat(this.SATK);
+        this.PMD_SDEF = this.convertStat(this.SDEF);
+        this.PMD_SPD = this.convertStat(this.SPD);
     }
 
     getImageUrl() {
@@ -64,6 +81,10 @@ export default class Pokemon {
             id = id.length === 2 ? `0${id}` : `00${id}`
         }
         return `http://www.serebii.net/sunmoon/pokemon/${id}.png`
+    }
+
+    getTypeImageUrl(type) {
+        return `http://www.serebii.net/pokedex-bw/type/${type}.gif`
     }
 
     toJSON() {
@@ -75,7 +96,9 @@ export default class Pokemon {
             PDEF: this.PDEF,
             SATK: this.SATK,
             SDEF: this.SDEF,
-            SPD: this.SPD
+            SPD: this.SPD,
+            TYPE1: this.TYPE1,
+            TYPE2: this.TYPE2
         }
     }
 
