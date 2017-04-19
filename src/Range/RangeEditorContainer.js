@@ -3,11 +3,11 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import Range from './Range';
+import RangeEditor from './RangeEditor';
 import {connect} from 'react-redux';
 import * as Actions from '../actions/Actions';
 
-class RangeConverter extends React.Component {
+class RangeEditorContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {open: false};
@@ -37,7 +37,7 @@ class RangeConverter extends React.Component {
             });
             const rangesElements = rangesArray.map((range, idx) => {
                 return (
-                    <Range rangeKey={idx+1} key={idx} />
+                    <RangeEditor rangeKey={idx+1} key={idx} />
                 );
             });
             const style = {
@@ -90,4 +90,4 @@ function mapDispatchToProps(dispatch) {
     return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RangeConverter);
+export default connect(mapStateToProps, mapDispatchToProps)(RangeEditorContainer);

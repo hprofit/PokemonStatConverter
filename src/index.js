@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import pokemonReducer from './reducers/Pokemon';
+import pokemonReducer from './reducers/PokemonReducer';
 import Root from './Root';
 import COLORS from './Colors';
 import {cyan500} from 'material-ui/styles/colors';

@@ -15,7 +15,17 @@ export const STATS = {
 };
 
 export default class Pokemon {
-    constructor(jsonObj, fromCache = false) {
+    constructor(jsonObj, ranges, fromCache = false) {
+        this.rangesArray = [];
+        for (let key in ranges) {
+            if (ranges.hasOwnProperty(key)) {
+                this.rangesArray.push(ranges[key]);
+            }
+        }
+        this.rangesArray.sort(function (a, b) {
+            return a.val < b.val ? -1 : 1;
+        });
+
         fromCache ? this._initFromCache(jsonObj) : this._initFromNetwork(jsonObj);
     }
 
@@ -157,6 +167,10 @@ export default class Pokemon {
         ) : null;
     }
 
+    _statWithinRange(stat, range) {
+        return (range.min <= stat && stat <= range.max);
+    }
+
     convertHP(hp) {
         //0 - 20   (+3)
         if (hp < 20) {
@@ -209,37 +223,46 @@ export default class Pokemon {
     }
 
     convertStat(stat) {
-        //0 - 10  (-2)
-        if (stat <= 10) {
-            return -2;
+        const mappedRange = this.rangesArray.find((range) => this._statWithinRange(stat, range));
+        if (mappedRange) {
+            return mappedRange.val;
         }
-        //11- 39  (-1)
-        else if (11 <= stat && stat <= 39) {
-            return -1;
-        }
-        //40- 64  (+0)
-        else if (40 <= stat && stat <= 64) {
-            return 0;
-        }
-        //65- 79 (+1)
-        else if (65 <= stat && stat <= 79) {
-            return 1;
-        }
-        //80- 99  (+2)
-        else if (80 <= stat && stat <= 99) {
-            return 2;
-        }
-        //100-119 (+3)
-        else if (100 <= stat && stat <= 119) {
-            return 3;
-        }
-        //120-149 (+4)
-        else if (120 <= stat && stat <= 149) {
-            return 4;
-        }
-        //150+    (+5)
-        else if (150 <= stat) {
-            return 5;
+        else {
+            throw Error(`Could not find range to map stat to! Stat Value: ${stat}`);
         }
     }
 }
+
+
+//    //0 - 10  (-2)
+//    if (stat <= 10) {
+//        return -2;
+//    }
+//    //11- 39  (-1)
+//    else if (11 <= stat && stat <= 39) {
+//        return -1;
+//    }
+//    //40- 64  (+0)
+//    else if (40 <= stat && stat <= 64) {
+//        return 0;
+//    }
+//    //65- 79 (+1)
+//    else if (65 <= stat && stat <= 79) {
+//        return 1;
+//    }
+//    //80- 99  (+2)
+//    else if (80 <= stat && stat <= 99) {
+//        return 2;
+//    }
+//    //100-119 (+3)
+//    else if (100 <= stat && stat <= 119) {
+//        return 3;
+//    }
+//    //120-149 (+4)
+//    else if (120 <= stat && stat <= 149) {
+//        return 4;
+//    }
+//    //150+    (+5)
+//    else if (150 <= stat) {
+//        return 5;
+//    }

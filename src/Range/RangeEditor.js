@@ -4,7 +4,7 @@ import MenuItem from 'material-ui/MenuItem';
 import {connect} from 'react-redux';
 import * as Actions from '../actions/Actions';
 
-class Range extends React.Component {
+class RangeEditor extends React.Component {
     constructor(props) {
         super(props);
 
@@ -97,4 +97,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Range);
+export default connect(mapStateToProps, mapDispatchToProps)(RangeEditor);

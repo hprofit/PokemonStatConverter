@@ -4,12 +4,12 @@ const BASE_URL = 'http://pokeapi.co/api/v2/';
 const POKEMON_URL = 'pokemon/';
 
 export default class PokemonService {
-    static getPokemon(pokemonId) {
+    static getPokemon(pokemonId, ranges) {
         return (!localStorage.getItem(pokemonId)) ?
-            this._getPokemon(pokemonId) : this._getPokemonFromStorage(pokemonId);
+            this._getPokemon(pokemonId, ranges) : this._getPokemonFromStorage(pokemonId, ranges);
     }
 
-    static _getPokemon(pokemonId) {
+    static _getPokemon(pokemonId, ranges) {
         return fetch(`${BASE_URL}${POKEMON_URL}${pokemonId}/`, {
             method: 'GET',
             cache: 'default'
@@ -19,7 +19,7 @@ export default class PokemonService {
                 return response.json();
             })
             .then(function (data) {
-                let pokemon = new Pokemon(data);
+                let pokemon = new Pokemon(data, ranges);
                 try {
                     localStorage.setItem(pokemonId, JSON.stringify(pokemon.toJSON()));
                 }
@@ -31,10 +31,10 @@ export default class PokemonService {
             .catch((error) => console.log(error));
     }
 
-    static _getPokemonFromStorage(pokemonId) {
+    static _getPokemonFromStorage(pokemonId, ranges) {
         return new Promise((resolve, reject) => {
             let data = JSON.parse(localStorage.getItem(pokemonId));
-            resolve(new Pokemon(data, true));
+            resolve(new Pokemon(data, ranges, true));
         });
     }
 }

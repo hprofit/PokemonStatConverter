@@ -26,7 +26,7 @@ class PokemonSearch extends React.Component {
         const pokeID = this.state.pokemonId;
 
         this.props.setIsLoading(true);
-        PokemonService.getPokemon(pokeID)
+        PokemonService.getPokemon(pokeID, this.props.ranges)
             .then((pokemon) => {
                 this.props.setIsLoading(false);
                 this.props.setNewPokemon(pokemon);
@@ -70,7 +70,8 @@ class PokemonSearch extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        isLoading: state.isLoading
+        isLoading: state.isLoading,
+        ranges: state.ranges
     };
 }
 
