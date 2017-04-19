@@ -7,22 +7,33 @@ import * as Actions from '../actions/Actions';
 class Range extends React.Component {
     constructor(props) {
         super(props);
+
+        const range = this.props.ranges[this.props.rangeKey];
         this.state = {
-            min: this.props.ranges[this.props.key].min,
-            max: this.props.ranges[this.props.key].max,
-            val: this.props.ranges[this.props.key].val
+            min: range.min,
+            max: range.max,
+            val: range.val
         };
 
         this._handleMinValueChange = this._handleMinValueChange.bind(this);
         this._handleMaxValueChange = this._handleMaxValueChange.bind(this);
+        this._handleValueChange = this._handleValueChange.bind(this);
+    }
+
+    componentWillReceiveProps(newProps) {
+        const range = newProps.ranges[newProps.rangeKey];
+        this.setState({
+            min: range.min,
+            max: range.max,
+            val: range.val
+        });
     }
 
     _updateRange(range) {
-        this.props.updateSingleRange(range, this.props.key);
+        this.props.updateSingleRange(range, this.props.rangeKey);
     }
 
     _handleMinValueChange(event) {
-        //this.setState({min: event.target.value});
         this._updateRange({
             min: event.target.value,
             max: this.state.max,
@@ -31,7 +42,6 @@ class Range extends React.Component {
     }
 
     _handleMaxValueChange(event) {
-        //this.setState({max: event.target.value});
         this._updateRange({
             min: this.state.min,
             max: event.target.value,
@@ -40,7 +50,6 @@ class Range extends React.Component {
     }
 
     _handleValueChange(event) {
-        //this.setState({val: event.target.value});
         this._updateRange({
             min: this.state.min,
             max: this.state.max,
@@ -82,7 +91,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        updateSingleRange: (range, key) => dispatch(Actions.updateSingleRange(range, key))
+        updateSingleRange: (range, rangeKey) => {
+            dispatch(Actions.updateSingleRange(range, rangeKey))
+        }
     };
 }
 

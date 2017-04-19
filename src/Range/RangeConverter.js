@@ -26,15 +26,21 @@ class RangeConverter extends React.Component {
     render() {
         if (this.props.ranges) {
             const ranges = this.props.ranges;
-            const rangesArray = [];
+            let rangesArray = [];
             for (let key in ranges) {
                 if (ranges.hasOwnProperty(key)) {
                     rangesArray.push(ranges[key]);
                 }
             }
-            rangesArray
-            const rangesElements = ranges
-            style = {
+            rangesArray.sort(function (a, b) {
+                return a.val < b.val ? -1 : 1;
+            });
+            const rangesElements = rangesArray.map((range, idx) => {
+                return (
+                    <Range rangeKey={idx+1} key={idx} />
+                );
+            });
+            const style = {
                 marginLeft: 12,
                 marginTop: 28
             };
@@ -62,10 +68,11 @@ class RangeConverter extends React.Component {
                                 onTouchTap={this._handleToggle}
                             />
                         </MenuItem>
-                        <Range key={'1'}/>
+                        {rangesElements}
                     </Drawer>
                 </div>
             );
+            //<Range key={'1'}/>
         }
         else {
             return null;

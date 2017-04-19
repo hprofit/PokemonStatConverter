@@ -35,6 +35,18 @@ export default class Pokemon {
         this.SDEF = stats['special-defense'];
         this.SPD = stats.speed;
 
+        const types = this.JSON_OBJ.types;
+        if (types.length === 2) {
+            types.sort(function (a, b) {
+                return a.slot < b.slot ? -1 : 1;
+            });
+            this.TYPE1 = types[0].type.name;
+            this.TYPE2 = types[1].type.name;
+        }
+        else {
+            this.TYPE1 = types[0].type.name;
+        }
+
         this.PMD_HP = this.convertHP(this.HP);
         this.PMD_PATK = this.convertStat(this.PATK);
         this.PMD_PDEF = this.convertStat(this.PDEF);
@@ -52,6 +64,8 @@ export default class Pokemon {
         this.SATK = jsonObj.SATK;
         this.SDEF = jsonObj.SDEF;
         this.SPD = jsonObj.SPD;
+        this.TYPE1 = jsonObj.TYPE1;
+        this.TYPE2 = jsonObj.TYPE2;
 
         this.PMD_HP = this.convertHP(this.HP);
         this.PMD_PATK = this.convertStat(this.PATK);
@@ -69,6 +83,10 @@ export default class Pokemon {
         return `http://www.serebii.net/sunmoon/pokemon/${id}.png`
     }
 
+    getTypeImageUrl(type) {
+        return `http://www.serebii.net/pokedex-bw/type/${type}.gif`
+    }
+
     toJSON() {
         return {
             ID: this.ID,
@@ -78,7 +96,9 @@ export default class Pokemon {
             PDEF: this.PDEF,
             SATK: this.SATK,
             SDEF: this.SDEF,
-            SPD: this.SPD
+            SPD: this.SPD,
+            TYPE1: this.TYPE1,
+            TYPE2: this.TYPE2
         }
     }
 

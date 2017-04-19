@@ -59,7 +59,7 @@ class PokemonSearch extends React.Component {
                 />
                 <RaisedButton
                     label="Get Info"
-                    disabled={!this.verifyPokemonIdIsValid()}
+                    disabled={!this.verifyPokemonIdIsValid() || this.props.isLoading}
                     primary={true} style={style}
                     onClick={this.getPokemon}
                 />
@@ -69,7 +69,9 @@ class PokemonSearch extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return {};
+    return {
+        isLoading: state.isLoading
+    };
 }
 
 function mapDispatchToProps(dispatch) {

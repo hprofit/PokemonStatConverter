@@ -16,7 +16,7 @@ class Header extends React.Component {
     _renderHeaderWithoutLoading() {
         return (
             <AppBar
-                title={'Pokemon Stat Generator'}
+                title={'Pokémon Stat Generator'}
                 iconClassNameRight="muidocs-icon-navigation-expand-more"
                 showMenuIconButton={false}
             />
@@ -26,7 +26,7 @@ class Header extends React.Component {
     _renderHeaderWithLoading() {
         return (
             <AppBar
-                title={'Pokemon Stat Generator'}
+                title={'Pokémon Stat Generator'}
                 iconElementRight={<Loading shouldShow={this.props.isLoading}/>}
                 showMenuIconButton={false}
             />

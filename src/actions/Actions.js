@@ -14,7 +14,6 @@ export const setIsLoading = (isLoading) => {
     }
 };
 
-
 export const updateRanges = (ranges) => {
     return {
         type: ACTION_TYPES.UPDATE_RANGES,
@@ -22,10 +21,10 @@ export const updateRanges = (ranges) => {
     }
 };
 
-export const updateSingleRange = (key, range) => {
+export const updateSingleRange = (range, key) => {
     return {
         type: ACTION_TYPES.UPDATE_SINGLE_RANGE,
-        key,
-        range
+        range,
+        key
     }
 };
