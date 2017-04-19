@@ -13,3 +13,19 @@ export const setIsLoading = (isLoading) => {
         isLoading
     }
 };
+
+
+export const updateRanges = (ranges) => {
+    return {
+        type: ACTION_TYPES.UPDATE_RANGES,
+        ranges
+    }
+};
+
+export const updateSingleRange = (key, range) => {
+    return {
+        type: ACTION_TYPES.UPDATE_SINGLE_RANGE,
+        key,
+        range
+    }
+};

@@ -16,46 +16,49 @@ export const STATS = {
 
 export default class Pokemon {
     constructor(jsonObj, fromCache = false) {
-        if (!fromCache) {
-            const stats = {};
-            this.JSON_OBJ = jsonObj;
-            this.JSON_OBJ.stats.forEach((stat) => {
-                stats[`${stat.stat.name}`] = stat.base_stat;
-            });
+        fromCache ? this._initFromCache(jsonObj) : this._initFromNetwork(jsonObj);
+    }
 
-            this.NAME = capitalizeFirstLetter(jsonObj.name);
-            this.ID = jsonObj.id;
-            this.HP = stats.hp;
-            this.PATK = stats.attack;
-            this.PDEF = stats.defense;
-            this.SATK = stats['special-attack'];
-            this.SDEF = stats['special-defense'];
-            this.SPD = stats.speed;
+    _initFromNetwork(jsonObj) {
+        const stats = {};
+        this.JSON_OBJ = jsonObj;
+        this.JSON_OBJ.stats.forEach((stat) => {
+            stats[`${stat.stat.name}`] = stat.base_stat;
+        });
 
-            this.PMD_HP = this.convertHP(this.HP);
-            this.PMD_PATK = this.convertStat(this.PATK);
-            this.PMD_PDEF = this.convertStat(this.PDEF);
-            this.PMD_SATK = this.convertStat(this.SATK);
-            this.PMD_SDEF = this.convertStat(this.SDEF);
-            this.PMD_SPD = this.convertStat(this.SPD);
-        }
-        else {
-            this.NAME = jsonObj.NAME;
-            this.ID = jsonObj.ID;
-            this.HP = jsonObj.HP;
-            this.PATK = jsonObj.PATK;
-            this.PDEF = jsonObj.PDEF;
-            this.SATK = jsonObj.SATK;
-            this.SDEF = jsonObj.SDEF;
-            this.SPD = jsonObj.SPD;
+        this.NAME = capitalizeFirstLetter(jsonObj.name);
+        this.ID = jsonObj.id;
+        this.HP = stats.hp;
+        this.PATK = stats.attack;
+        this.PDEF = stats.defense;
+        this.SATK = stats['special-attack'];
+        this.SDEF = stats['special-defense'];
+        this.SPD = stats.speed;
 
-            this.PMD_HP = this.convertHP(this.HP);
-            this.PMD_PATK = this.convertStat(this.PATK);
-            this.PMD_PDEF = this.convertStat(this.PDEF);
-            this.PMD_SATK = this.convertStat(this.SATK);
-            this.PMD_SDEF = this.convertStat(this.SDEF);
-            this.PMD_SPD = this.convertStat(this.SPD);
-        }
+        this.PMD_HP = this.convertHP(this.HP);
+        this.PMD_PATK = this.convertStat(this.PATK);
+        this.PMD_PDEF = this.convertStat(this.PDEF);
+        this.PMD_SATK = this.convertStat(this.SATK);
+        this.PMD_SDEF = this.convertStat(this.SDEF);
+        this.PMD_SPD = this.convertStat(this.SPD);
+    }
+
+    _initFromCache(jsonObj) {
+        this.NAME = jsonObj.NAME;
+        this.ID = jsonObj.ID;
+        this.HP = jsonObj.HP;
+        this.PATK = jsonObj.PATK;
+        this.PDEF = jsonObj.PDEF;
+        this.SATK = jsonObj.SATK;
+        this.SDEF = jsonObj.SDEF;
+        this.SPD = jsonObj.SPD;
+
+        this.PMD_HP = this.convertHP(this.HP);
+        this.PMD_PATK = this.convertStat(this.PATK);
+        this.PMD_PDEF = this.convertStat(this.PDEF);
+        this.PMD_SATK = this.convertStat(this.SATK);
+        this.PMD_SDEF = this.convertStat(this.SDEF);
+        this.PMD_SPD = this.convertStat(this.SPD);
     }
 
     getImageUrl() {
