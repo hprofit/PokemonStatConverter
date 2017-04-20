@@ -77,6 +77,12 @@ class RangeEditor extends React.Component {
                         value={this.state.max} style={{width: 150}}
                         onChange={this._handleMaxValueChange}
                     />
+                    <TextField
+                        floatingLabelText="Value"
+                        type="number"
+                        value={this.state.val} style={{width: 150}}
+                        onChange={this._handleValueChange}
+                    />
                 </div>
             </MenuItem>
         );

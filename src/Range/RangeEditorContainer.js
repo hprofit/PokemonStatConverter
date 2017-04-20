@@ -44,6 +44,10 @@ class RangeEditorContainer extends React.Component {
                 marginLeft: 12,
                 marginTop: 28
             };
+            const drawerButtonContainerStyle = {
+                display: 'flex',
+                justifyContent: 'space-around'
+            };
             return (
                 <div>
                     <RaisedButton
@@ -54,19 +58,20 @@ class RangeEditorContainer extends React.Component {
 
                     <Drawer
                         open={this.state.open} docked={false}
-                        width={400} onRequestChange={(open) => this.setState({open})}
+                        width={500} onRequestChange={(open) => this.setState({open})}
                     >
                         <MenuItem>
-                            <RaisedButton
-                                label="Close"
-                                primary={true}
-                                onTouchTap={this._handleToggle}
-                            />
-                            <RaisedButton
-                                label="Save"
-                                primary={true}
-                                onTouchTap={this._handleToggle}
-                            />
+                            <div style={drawerButtonContainerStyle}>
+                                <RaisedButton
+                                    label="Close"
+                                    onTouchTap={this._handleToggle}
+                                />
+                                <RaisedButton
+                                    label="Save"
+                                    primary={true}
+                                    onTouchTap={this._handleToggle}
+                                />
+                            </div>
                         </MenuItem>
                         {rangesElements}
                     </Drawer>
